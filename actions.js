@@ -1,5 +1,10 @@
 export const SAVE_CREDENTIALS = 'SAVE_CREDENTIALS'
+export const LOGOUT = 'LOGOUT'
 
-export function saveCredentials(username, password) {
-    return { type: SAVE_CREDENTIALS, username, password}
+export function saveCredentials(credentials) {
+    return { type: SAVE_CREDENTIALS, credentials}
+}
+
+export function logout() {
+    return {type: LOGOUT}
 }

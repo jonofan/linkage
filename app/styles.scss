@@ -1,0 +1,15 @@
+#main-layout{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+#auth-container {
+    width: 50%;
+    margin: auto;
+}
+
+.credential-viewer-container {
+    display: inline-block;
+    float: right;
+}

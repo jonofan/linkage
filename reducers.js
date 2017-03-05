@@ -1,16 +1,20 @@
 import {combineReducers} from 'redux'
-import * as reducers from './reducers'
-import {SAVE_CREDENTIALS} from './actions'
+import * as reducers from 'reducers'
+import {SAVE_CREDENTIALS, LOGOUT} from 'actions'
 
-const defaultCredentials = 
-{username: 'jono', password: 'ewardo'}
+const defaultAuthentication = {
+    credentials: {},
+    isLoggedIn: false
+}
 
 
-export function credentials(state = defaultCredentials, action) {
+export function authentication(state = defaultAuthentication, action) {
     switch (action.type) {
         case SAVE_CREDENTIALS:
-            return {...state, username: action.username, password: action.password}
+            return {...state, credentials: action.credentials, isLoggedIn: true}
 
+        case LOGOUT:
+            return defaultAuthentication
         default:
             return state
     }

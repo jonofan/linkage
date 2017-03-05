@@ -1,28 +1,60 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { saveCredentials } from '../../actions.js'
+import { saveCredentials } from 'actions'
+import { Button, Form, FormControl, FormGroup, ControlLabel, Col } from 'react-bootstrap'
+
+
+
+const FieldGroup = ({id, label, help, submitButton, value, ...props}) => {
+    return(
+        <FormGroup controlId={id} >
+            <Col sm={3} componentClass={ControlLabel}>{label}</Col>
+            <Col sm={6}>
+                {submitButton &&
+                    <Button type='submit' {...props} block>{value}</Button>
+                }
+                {!submitButton && 
+                    <FormControl {...props} />
+                }
+
+            </Col>
+        </FormGroup>
+    )
+}
 
 let CredentialsForm = ({dispatch, credentials}) => {
-    let newUsername, newPassword
-    console.log(credentials.username)
+    let inputUserName, inputPassword
     return(
     <div>
-        <b>Give me your deets!</b><br />
-        <form onSubmit={e => {
-         e.preventDefault()
-         console.log(newUsername.value, newPassword.value)
-         if(!newUsername.value.trim() && !newPassword.value.trim()) {
-             return
-         }
-         dispatch(saveCredentials(newUsername.value, newPassword.value))
-         
-         
-        }}>
-
-            <input ref={ thisInput => { newUsername = thisInput } } defaultValue={credentials.username}/> <br />
-            <input ref={ thisInput => { newPassword = thisInput } } defaultValue={credentials.password}/> <br/>
-            <button type='submit'>Save</button>
-        </form>
+        <Form horizontal 
+            onSubmit={e => {
+                e.preventDefault()
+                dispatch(saveCredentials({username: inputUserName.value, password: inputPassword.value}))
+            }}
+        >
+            <FieldGroup
+                id='formCtrlUsername'
+                type='text'
+                label='username'
+                placeholder='username'
+                inputRef={ thisInput => { inputUserName = thisInput } }
+            />
+            <FieldGroup
+                id='formCtrlPassword'
+                type='password'
+                label='password'
+                placeholder='password'
+                inputRef={ thisInput => { inputPassword = thisInput } }
+            />
+            <FieldGroup
+                id='formCtrlSave'
+                type='submit'
+                value='Login'
+                bsStyle='primary'
+                submitButton='true'
+            />  
+            
+        </Form>
     </div>
     )
 }
